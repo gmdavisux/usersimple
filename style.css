@@ -1,1 +1,27 @@
-body{color:blue; background-color:#faf9f7; margin:60px 0 100px;}
+/* Change navbar background color */
+.navbar {background-color: transparent}
+/* Change navbar text color */
+.navbar .navbar-nav .nav-link {color: white;}
+/* Change navbar active link color */
+.navbar .navbar-nav .nav-item.active .nav-link {color: yellow;}
+/* Change navbar hover link color */
+.navbar .navbar-nav .nav-link:hover {color: yellow;}
+/* Change navbar brand color */
+.navbar .navbar-brand {color: white; font-size: 1.5em; line-height: 1.5em; color: yellow;}
+.header{
+    background-image: url('.github/workflows/images/k1go_sketch2.png');
+    background: size 150%;
+    color: white;
+    text-align: center;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: dodgerblue;
+    background-blend-mode: multiply;
+}
+.brand-color{color: dodgerblue;}
+/* content section 1 */
+.color-box-1{
+    background-color: dodgerblue;
+    text-align: left;
+    color: white;
+}
