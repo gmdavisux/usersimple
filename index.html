@@ -12,34 +12,28 @@
     <link href="style.css" rel="stylesheet">
   </head>
   <body>
-    <div class="container-fluid header">
+    <div class="container-fluid fixed-top header">
       <!-- bootstrap code to add full width header at the top of the page -->
     <nav class="navbar navbar-expand-md">
       <div class="container">
-        <a class="navbar-brand" href="#">usersimple</a>
+        <a class="navbar-brand" href="./">usersimple</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="#work">Recent Work</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
+              <a class="nav-link" href="?page=suppliers">Suppliers</a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
     <!-- // full width container with headline, subhead and a background image -->
-    <div class="container">
+    <div class="container" id="hero">
       <div class="row p-5">
         <div class="col">
           <h1>Gary M Davis</h1>
@@ -50,10 +44,10 @@
     </div>
     </div>
     <!-- // add a container with a row and two columns -->
-    <div class="container py-5">
+    <div class="container py-5" id="defaultContent">
       <div class="row">
         <div class="col-lg-5 pb-5">
-          <h1 class="text-left">Over <span class="brand-color">25 years</span> crafting intuitive experinces</h1>
+          <h1 class="text-left">Over <span class="brand-color">20 years</span> crafting intuitive experinces</h1>
           <p  class="text-left"></p>After a background in industrial design and graphic design, I spent the last 20 years focusing exclusively on designing elegant and intuitive user expereinces for business productivity tools. I use design thinking processes and tools to understand users, reframe problems, design, prototype and test.  </p>
           <a class="btn btn-primary" href="#work" role="button">View my work</a>
         </div>
@@ -90,12 +84,62 @@
       </div>
     </div>
     </div>
+    <div id="specialContent" style="display: none;">
+      <h1>Special Content</h1>
+      <p>This is the special content that will be loaded based on the URL query.</p>
+    </div>
+    
+    <div id="contentContainer"></div>
+    
     <!-- load carousel -->
 
     <div id="work"></div>
 
   <script>
-    // Function to load the HTML snippet
+    // Function to load dynamic content
+  function loadContent() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const contentFile = urlParams.get('page') || 'default';
+    const contentContainer = document.getElementById('contentContainer');
+    const defaultContent = document.getElementById('defaultContent');
+    const specialContent = document.getElementById('specialContent');
+    const heroContent = document.getElementById('hero');
+
+    // Clear the content container
+    contentContainer.innerHTML = '';
+
+    if (contentFile === 'default') {
+      // Show the default content
+      defaultContent.style.display = 'block';
+      specialContent.style.display = 'none';
+      contentContainer.appendChild(defaultContent);
+      document.body.style.paddingTop = `312px`;
+    } else {
+      // Load the special content
+      fetch(`pages/${contentFile}.html`) 
+      // pages/suppliers.htm
+        .then(response => response.text())
+        .then(data => {
+          specialContent.innerHTML = data;
+          defaultContent.style.display = 'none';
+          specialContent.style.display = 'block';
+          contentContainer.appendChild(specialContent);
+          heroContent.style.display = 'none';
+          document.body.style.paddingTop = `62px`;
+        })
+        .catch(error => {
+          console.error('Error fetching content:', error);
+          defaultContent.style.display = 'block';
+          specialContent.style.display = 'none';
+          contentContainer.appendChild(defaultContent);
+        });
+    }
+  }
+
+  window.addEventListener('hashchange', loadContent);
+  window.addEventListener('load', loadContent);
+
+  // Function to load the HTML snippet
     function loadCarousel() {
       const carouselContainer = document.getElementById('work');
       const xhr = new XMLHttpRequest();
@@ -113,11 +157,16 @@
 
     // Call the loadCarousel function when the page loads
     window.addEventListener('load', loadCarousel);
+    // end carousel
+
   </script>
-    <!-- // end carousel -->
+
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.6.20/fetch.min.js" integrity="sha512-5vzl35V/cPSXliPbZtxHY0Q6cfYFd2Qld79+d7wLPbOxnKeCHH/LmlMD8aYl0ZN5VZPFM2FnKiAjoNJ2k3vrEg==" crossorigin="anonymous" referrerpolicy="no-referrer" type="module"></script>
+
   </body>
 </html>
