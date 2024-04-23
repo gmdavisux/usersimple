@@ -112,6 +112,7 @@
       // Show the default content
       defaultContent.style.display = 'block';
       specialContent.style.display = 'none';
+      heroContent.style.display = 'block';
       contentContainer.appendChild(defaultContent);
       document.body.style.paddingTop = `312px`;
     } else {
@@ -123,8 +124,8 @@
           specialContent.innerHTML = data;
           defaultContent.style.display = 'none';
           specialContent.style.display = 'block';
-          contentContainer.appendChild(specialContent);
           heroContent.style.display = 'none';
+          contentContainer.appendChild(specialContent);
           document.body.style.paddingTop = `62px`;
         })
         .catch(error => {
