@@ -27,3 +27,12 @@
     text-align: left;
     color: white;
 }
+/* below fixes header */
+#work::before {
+    content: "";
+    display: block;
+    height: 270px; /* Replace with the height of your header */
+    margin-top: -270px; /* Negative value of your header's height */
+    visibility: hidden;
+    pointer-events: none;
+  }

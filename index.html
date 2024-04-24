@@ -47,7 +47,7 @@
     <div class="container py-5" id="defaultContent">
       <div class="row">
         <div class="col-lg-5 pb-5">
-          <h1 class="text-left">Over <span class="brand-color">20 years</span> crafting intuitive experinces</h1>
+          <h1 class="text-left">Over <span class="brand-color">20 years</span> crafting intuitive experiences</h1>
           <p  class="text-left"></p>After a background in industrial design and graphic design, I spent the last 20 years focusing exclusively on designing elegant and intuitive user expereinces for business productivity tools. I use design thinking processes and tools to understand users, reframe problems, design, prototype and test.  </p>
           <a class="btn btn-primary" href="#work" role="button">View my work</a>
         </div>
@@ -56,7 +56,8 @@
             <div class="col-lg-6 mb-4 d-flex">
               <div class="color-box-1 p-4 rounded-3">
                 <h2>Innovation</h2>
-                <p>Innovation unlocks new possibilities through technology. I actively explore ways to leverage innovative tech solutions that can eliminate unnecessary work or transform existing processes. Rather than simply meeting stated requirements, I strive to reframe the problem itself to uncover more optimal paths forward.
+                <p>Innovation unlocks new possibilities. I explore ways to leverage tech solutions to eliminate unnecessary work or transform existing processes. 
+                  <!-- Rather than simply meeting stated requirements, I strive to reframe the problem itself to uncover more optimal paths forward. -->
                 </p>
               </div>  
             </div>
@@ -82,8 +83,8 @@
             </div>
         </div>
       </div>
-    </div>
-    </div>
+    </div> <!-- end container -->
+    </div> <!-- end container -->
     <div id="specialContent" style="display: none;">
       <h1>Special Content</h1>
       <p>This is the special content that will be loaded based on the URL query.</p>
@@ -96,74 +97,74 @@
     <div id="work"></div>
 
   <script>
-    // Function to load dynamic content
-  function loadContent() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const contentFile = urlParams.get('page') || 'default';
-    const contentContainer = document.getElementById('contentContainer');
-    const defaultContent = document.getElementById('defaultContent');
-    const specialContent = document.getElementById('specialContent');
-    const heroContent = document.getElementById('hero');
-    // check the variable header height
-    const header = document.querySelector('.header');
-    const headerHeight = header.offsetHeight;
+    // Wrap everything in an IIFE to avoid polluting the global scope
+    (function() {
+      // Function to load dynamic content
+      async function loadContent() {
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const contentFile = urlParams.get('page') || 'default';
 
+        // Get elements
+        const contentContainer = document.getElementById('contentContainer');
+        const defaultContent = document.getElementById('defaultContent');
+        const specialContent = document.getElementById('specialContent');
+        const heroContent = document.getElementById('hero');
+        const header = document.querySelector('.header');
+        const headerHeight = header.offsetHeight;
 
-    // Clear the content container
-    contentContainer.innerHTML = '';
+        // Clear the content container
+        contentContainer.innerHTML = '';
 
-    if (contentFile === 'default') {
-      // Show the default content
-      defaultContent.style.display = 'block';
-      specialContent.style.display = 'none';
-      heroContent.style.display = 'block';
-      contentContainer.appendChild(defaultContent);
-      document.body.style.paddingTop = `${headerHeight}px`;
-    } else {
-      // Load the special content
-      fetch(`pages/${contentFile}.html`) 
-      // pages/suppliers.htm
-        .then(response => response.text())
-        .then(data => {
-          specialContent.innerHTML = data;
-          defaultContent.style.display = 'none';
-          specialContent.style.display = 'block';
-          heroContent.style.display = 'none';
-          contentContainer.appendChild(specialContent);
-          document.body.style.paddingTop = `62px`;
-        })
-        .catch(error => {
-          console.error('Error fetching content:', error);
+        if (contentFile === 'default') {
+          // Show the default content
           defaultContent.style.display = 'block';
           specialContent.style.display = 'none';
+          heroContent.style.display = 'block';
           contentContainer.appendChild(defaultContent);
-        });
-    }
-  }
-
-  window.addEventListener('hashchange', loadContent);
-  window.addEventListener('load', loadContent);
-
-  // Function to load the HTML snippet
-    function loadCarousel() {
-      const carouselContainer = document.getElementById('work');
-      const xhr = new XMLHttpRequest();
-
-      xhr.open('GET', 'pages/work.htm', true);
-
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-          carouselContainer.innerHTML = xhr.responseText;
+          document.body.style.paddingTop = `${headerHeight}px`;
+        } else {
+          // Load the special content
+          try {
+            const response = await fetch(`pages/${contentFile}.html`);
+            const data = await response.text();
+            specialContent.innerHTML = data;
+            defaultContent.style.display = 'none';
+            specialContent.style.display = 'block';
+            heroContent.style.display = 'none';
+            contentContainer.appendChild(specialContent);
+            document.body.style.paddingTop = `62px`;
+          } catch (error) {
+            // Handle errors
+            console.error('Error fetching content:', error);
+            defaultContent.style.display = 'block';
+            specialContent.style.display = 'none';
+            contentContainer.appendChild(defaultContent);
+          }
         }
-      };
+      }
 
-      xhr.send();
-    }
+      // Listen for hashchange and load events to load content
+      window.addEventListener('hashchange', loadContent);
+      window.addEventListener('load', loadContent);
 
-    // Call the loadCarousel function when the page loads
-    window.addEventListener('load', loadCarousel);
-    // end carousel
+      // Function to load the HTML snippet
+      async function loadCarousel() {
+        const carouselContainer = document.getElementById('work');
 
+        try {
+          const response = await fetch('pages/work.htm');
+          const data = await response.text();
+          carouselContainer.innerHTML = data;
+        } catch (error) {
+          // Handle errors
+          console.error('Error fetching carousel:', error);
+        }
+      }
+
+      // Call the loadCarousel function when the page loads
+      window.addEventListener('load', loadCarousel);
+    })();
   </script>
 
     
