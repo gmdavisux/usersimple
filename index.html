@@ -33,7 +33,7 @@
       </div>
     </nav>
     <!-- // full width container with headline, subhead and a background image -->
-    <div class="container" id="hero">
+    <div class="container d-none d-md-block" id="hero">
       <div class="row p-4">
         <div class="col">
           <h1>Gary M Davis</h1>
@@ -44,7 +44,9 @@
     </div>
     </div>
     <!-- // add a container with a row and two columns -->
-    <div class="container py-5" id="defaultContent">
+    <div id="defaultContent"> 
+      <!-- code within default content should only appear on the home page -->
+    <div class="container py-5">
       <div class="row">
         <div class="col-lg-5 pb-5">
           <h1 class="text-left">Over <span class="brand-color">20 years</span> crafting intuitive experiences</h1>
@@ -79,12 +81,40 @@
               <div class="color-box-1 p-4 rounded-3">
                 <h2>Design</h2>
                 <p>Good design delights users through intuitive and appealing experiences. I leverage design principles to effectively communicate, convey meaning, and encourage desired behaviors. </p>
-              </div>
-            </div>
+              </div> <!-- // color-box-1 -->
+            </div> <!-- // col -->
+          </div> <!-- // row -->
+      </div> <!-- // col -->
+    </div> <!-- // row -->
+  </div> <!-- // container -->
+
+  <div class="container-fluid bg-dark py-4">
+    <div class="container" id="logos">
+      <div class="row align-items-center">
+        <div class="col-lg-2 col-md-3 col-6 py-3">
+          <img class="img-fluid mx-auto d-block" src="logos/Coupa_Logo_4color(4)_595.png" style="filter: grayscale(100%) brightness(100%);">
+        </div>
+        <div class="col-lg-2 col-md-3 col-6 py-3">
+          <img class="img-fluid mx-auto d-block" src="logos/cloudcheckr-logo.png" style="filter: grayscale(100%) brightness(200%);"">
+        </div>
+        <div class="col-lg-2 col-md-3 col-6 py-3">
+          <img class="img-fluid mx-auto d-block" src="logos/EAGLEVIEW-LOGO-COLOR.png">
+        </div>
+        <div class="col-lg-2 col-md-3 col-6 py-3">
+          <img class="img-fluid mx-auto d-block" src="logos/Kodak_Alaris_Logo.svg">
+        </div>
+        <div class="col-lg-2 col-md-3 col-6 py-3">
+          <img class="img-fluid mx-auto d-block" src="logos/Dell_Technologies_logo.svg.png">
+        </div>
+        <div class="col-lg-2 col-md-3 col-6 py-3">
+          <img class="img-fluid mx-auto d-block" src="logos/1280px-Xerox_logo.svg.png">
         </div>
       </div>
-    </div> <!-- end container -->
-    </div> <!-- end container -->
+    </div>
+  </div>
+
+
+    </div>  <!-- end defaultContent -->
     <div id="specialContent" style="display: none;">
       <h1>Special Content</h1>
       <p>This is the special content that will be loaded based on the URL query.</p>
