@@ -104,6 +104,10 @@
     const defaultContent = document.getElementById('defaultContent');
     const specialContent = document.getElementById('specialContent');
     const heroContent = document.getElementById('hero');
+    // check the variable header height
+    const header = document.querySelector('.header');
+    const headerHeight = header.offsetHeight;
+
 
     // Clear the content container
     contentContainer.innerHTML = '';
@@ -114,7 +118,7 @@
       specialContent.style.display = 'none';
       heroContent.style.display = 'block';
       contentContainer.appendChild(defaultContent);
-      document.body.style.paddingTop = `312px`;
+      document.body.style.paddingTop = `${headerHeight}px`;
     } else {
       // Load the special content
       fetch(`pages/${contentFile}.html`) 
